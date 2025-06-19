@@ -1,10 +1,11 @@
-import 'package:DashSocial/presentation/screens/auth/login_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase/supabase.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/secrets/constants.dart';
+import 'presentation/screens/auth/login_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
