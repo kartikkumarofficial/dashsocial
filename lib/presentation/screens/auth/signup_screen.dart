@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../widgets/text_field_box.dart';
 
-
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -22,7 +21,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void dispose() {
-
     emailController.dispose();
     nameController.dispose();
     passwordController.dispose();
@@ -41,29 +39,41 @@ class _SignUpPageState extends State<SignUpPage> {
           key: formKey,
           child: Column(
             children: [
-              SizedBox(height:  Get.height*0.1),
+              SizedBox(height: Get.height * 0.1),
               Text(
                 'Create Account',
-                style: GoogleFonts.poppins(fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                style: GoogleFonts.poppins(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
               const SizedBox(height: 30),
               TextFieldBox(
-                hint: 'Name', icon: Icons.person, controller: nameController,),
+                hint: 'Name',
+                icon: Icons.person,
+                controller: nameController,
+              ),
               const SizedBox(height: 20),
               TextFieldBox(
-                hint: 'Email', icon: Icons.email, controller: emailController,),
+                hint: 'Email',
+                icon: Icons.email,
+                controller: emailController,
+              ),
               const SizedBox(height: 20),
-              TextFieldBox(hint: 'Password',
+              TextFieldBox(
+                hint: 'Password',
                 icon: Icons.lock,
                 isObscure: true,
-                controller: passwordController,),
+                controller: passwordController,
+              ),
               const SizedBox(height: 20),
-              TextFieldBox(hint: 'Confirm Password',
+              TextFieldBox(
+                hint: 'Confirm Password',
                 icon: Icons.lock_outline,
                 isObscure: true,
-                controller: confirmPasswordController,),
+                controller: confirmPasswordController,
+              ),
               const SizedBox(height: 30),
               SizedBox(
                 width: double.infinity,
@@ -73,9 +83,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     foregroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(vertical: 15),
                   ),
-                  onPressed: () {
-
-                  },
+                  onPressed: () {},
                   child: const Text('Sign Up'),
                 ),
               ),
