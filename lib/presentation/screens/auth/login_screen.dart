@@ -34,7 +34,7 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            TextField(
+            TextFormField(
               obscureText: true,
               decoration: InputDecoration(
                 filled: true,

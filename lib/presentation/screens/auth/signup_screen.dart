@@ -33,61 +33,63 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(backgroundColor: Colors.black),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              SizedBox(height: Get.height * 0.1),
-              Text(
-                'Create Account',
-                style: GoogleFonts.poppins(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 30),
-              TextFieldBox(
-                hint: 'Name',
-                icon: Icons.person,
-                controller: nameController,
-              ),
-              const SizedBox(height: 20),
-              TextFieldBox(
-                hint: 'Email',
-                icon: Icons.email,
-                controller: emailController,
-              ),
-              const SizedBox(height: 20),
-              TextFieldBox(
-                hint: 'Password',
-                icon: Icons.lock,
-                isObscure: true,
-                controller: passwordController,
-              ),
-              const SizedBox(height: 20),
-              TextFieldBox(
-                hint: 'Confirm Password',
-                icon: Icons.lock_outline,
-                isObscure: true,
-                controller: confirmPasswordController,
-              ),
-              const SizedBox(height: 30),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                SizedBox(height: Get.height * 0.1),
+                Text(
+                  'Create Account',
+                  style: GoogleFonts.poppins(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  onPressed: () {},
-                  child: const Text('Sign Up'),
                 ),
-              ),
-            ],
+                const SizedBox(height: 30),
+                TextFieldBox(
+                  hint: 'Name',
+                  icon: Icons.person,
+                  controller: nameController,
+                ),
+                const SizedBox(height: 20),
+                TextFieldBox(
+                  hint: 'Email',
+                  icon: Icons.email,
+                  controller: emailController,
+                ),
+                const SizedBox(height: 20),
+                TextFieldBox(
+                  hint: 'Password',
+                  icon: Icons.lock,
+                  isObscure: true,
+                  controller: passwordController,
+                ),
+                const SizedBox(height: 20),
+                TextFieldBox(
+                  hint: 'Confirm Password',
+                  icon: Icons.lock_outline,
+                  isObscure: true,
+                  controller: confirmPasswordController,
+                ),
+                const SizedBox(height: 30),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                    ),
+                    onPressed: () {},
+                    child: const Text('Sign Up'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
