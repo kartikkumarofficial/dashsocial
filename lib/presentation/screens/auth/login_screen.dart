@@ -1,12 +1,21 @@
+import 'package:dashsocial/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../widgets/social_login_button.dart';
 import 'signup_screen.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final AuthController authController = Get.put(AuthController() , permanent: false);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +31,9 @@ class LoginPage extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             TextField(
+              controller: authController.emailController,
               keyboardType: TextInputType.emailAddress,
+              style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.grey[900],
@@ -35,7 +46,9 @@ class LoginPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextFormField(
+              controller: authController.passwordController,
               obscureText: true,
+              style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.grey[900],
@@ -52,7 +65,7 @@ class LoginPage extends StatelessWidget {
               child: Text('Forgot Password?', style: TextStyle(color: Colors.white70)),
             ),
             const SizedBox(height: 20),
-            SizedBox(
+            Obx(()=>SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -60,12 +73,15 @@ class LoginPage extends StatelessWidget {
                   foregroundColor: Colors.black,
                   padding: const EdgeInsets.symmetric(vertical: 15),
                 ),
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed('/second');
-                },
-                child: const Text('Sign in'),
+                onPressed: authController.isLoading.value? null :(){
+                  authController.logIn();
+
+                }
+
+                ,
+                child: authController.isLoading.value? CircularProgressIndicator() : Text('Sign in'),
               ),
-            ),
+            ),),
             const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -99,6 +115,4 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-
-
 }

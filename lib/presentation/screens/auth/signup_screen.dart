@@ -19,7 +19,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final AuthController authController = Get.put(AuthController());
+  final AuthController authController = Get.put(AuthController() , permanent: false);
 
   @override
   void dispose() {
@@ -75,7 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   controller: authController.confirmPasswordController,
                 ),
                 const SizedBox(height: 30),
-                SizedBox(
+                Obx(()=>SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -83,13 +83,18 @@ class _SignUpPageState extends State<SignUpPage> {
                       foregroundColor: Colors.black,
                       padding: const EdgeInsets.symmetric(vertical: 15),
                     ),
-                    onPressed: () {
-                      authController.signUp();
+                    onPressed:
+                      authController.isLoading.value?null:(){
+                        if(formKey.currentState!.validate()){
+                          authController.signUp();
+    }
+
+
 
                     },
-                    child: const Text('Sign Up'),
+                    child: authController.isLoading.value?CircularProgressIndicator(color: Colors.white,):  Text('Sign Up'),
                   ),
-                ),
+                ),),
               ],
             ),
           ),

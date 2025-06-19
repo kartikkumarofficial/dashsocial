@@ -1,3 +1,4 @@
+import 'package:dashsocial/presentation/screens/auth/login_screen.dart';
 import 'package:dashsocial/presentation/screens/dashboard_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class AuthController extends GetxController {
     final confirmPassword = confirmPasswordController.text.trim();
 
     if (password != confirmPassword) {
-      Get.snackbar('Error', 'Passwords do not match');
+      Get.snackbar('Error', 'Passwords do not match',colorText: Colors.white);
       return;
     }
 
@@ -32,9 +33,9 @@ class AuthController extends GetxController {
 
       if (response.user != null) {
         Get.snackbar('Success', 'Signed up as ${response.user!.email}');
-        Get.offAll(DashboardScreen());
+        Get.offAll(LoginPage());
       } else {
-        Get.snackbar('Sign Up Failed', 'Something went wrong. Try again.');
+        Get.snackbar('Sign Up Failed', 'Something went wrong. Try again.',colorText: Colors.white);
       }
     } catch (e) {
       Get.snackbar(
@@ -44,6 +45,36 @@ class AuthController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  Future<void> logIn() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+    if (email.isEmpty || password.isEmpty) {
+      Get.snackbar('Error', 'Email and password cannot be empty',colorText: Colors.white);
+      return;
+    }
+    isLoading.value = true;
+
+    try{
+      final response = await supabase.auth.signInWithPassword(email:email,password: password);
+
+      if(response.user != null){
+        Get.snackbar('Welcome', 'Logged in as ${response.user!.email}',colorText: Colors.white);
+        Get.offAll(DashboardScreen()) ;
+
+      }else{
+        Get.snackbar('Login Failed','Invalid Credentials' ,colorText: Colors.white);
+      }
+    }
+        catch(e){
+      Get.snackbar('Error', e.toString().replaceAll('Exception',''),colorText: Colors.white);
+        }
+    finally{
+      isLoading.value=false;
+    }
+
+
   }
 
   @override
