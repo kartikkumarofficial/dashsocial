@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../controllers/auth_controller.dart';
 import '../../widgets/text_field_box.dart';
 import 'package:dashsocial/services/auth_service.dart';
 
 class SignUpPage extends StatefulWidget {
-  final AuthService _authService=AuthService();
+
   SignUpPage({super.key});
 
   @override
@@ -17,17 +18,12 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final nameController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+
+  final AuthController authController = Get.put(AuthController());
 
   @override
   void dispose() {
-    emailController.dispose();
-    nameController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
+
     super.dispose();
   }
 
@@ -56,27 +52,27 @@ class _SignUpPageState extends State<SignUpPage> {
                 TextFieldBox(
                   hint: 'Name',
                   icon: Icons.person,
-                  controller: nameController,
+                  controller: authController.nameController,
                 ),
                 const SizedBox(height: 20),
                 TextFieldBox(
                   hint: 'Email',
                   icon: Icons.email,
-                  controller: emailController,
+                  controller: authController.emailController,
                 ),
                 const SizedBox(height: 20),
                 TextFieldBox(
                   hint: 'Password',
                   icon: Icons.lock,
                   isObscure: true,
-                  controller: passwordController,
+                  controller: authController.passwordController,
                 ),
                 const SizedBox(height: 20),
                 TextFieldBox(
                   hint: 'Confirm Password',
                   icon: Icons.lock_outline,
                   isObscure: true,
-                  controller: confirmPasswordController,
+                  controller: authController.confirmPasswordController,
                 ),
                 const SizedBox(height: 30),
                 SizedBox(
@@ -88,6 +84,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       padding: const EdgeInsets.symmetric(vertical: 15),
                     ),
                     onPressed: () {
+                      authController.signUp();
 
                     },
                     child: const Text('Sign Up'),
