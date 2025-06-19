@@ -1,12 +1,15 @@
+import 'package:dashsocial/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../widgets/text_field_box.dart';
+import 'package:dashsocial/services/auth_service.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  final AuthService _authService=AuthService();
+  SignUpPage({super.key});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -84,7 +87,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       foregroundColor: Colors.black,
                       padding: const EdgeInsets.symmetric(vertical: 15),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+
+                    },
                     child: const Text('Sign Up'),
                   ),
                 ),
