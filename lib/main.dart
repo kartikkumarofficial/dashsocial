@@ -1,5 +1,4 @@
-import 'package:dashsocial/homepage.dart';
-import 'package:dashsocial/presentation/screens/auth/login_screen.dart';
+import 'package:DashSocial/presentation/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase/supabase.dart';
