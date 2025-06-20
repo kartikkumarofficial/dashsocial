@@ -7,9 +7,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class UserController extends GetxController{
   var userName = ''.obs;
   var profileImageUrl = ''.obs;
+  final supabase = Supabase.instance.client;
   
   Future<void> fetchUserProfile() async{
-    final supabase = Supabase.instance.client;
+
     final user = supabase.auth.currentUser;
     final userData = await supabase.from('users').select().eq('id', user!.id).single();
 
@@ -18,7 +19,11 @@ class UserController extends GetxController{
 
   }
 
-
+  Future<void> updateProfileImage(String url) async{
+    final user = supabase.auth.currentUser;
+    await Supabase.instance.client.from('profiles').update({'profile_image':url}).eq('id', user!.id);
+    profileImageUrl.value=url;
+  }
   
   
 }
