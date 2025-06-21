@@ -1,20 +1,34 @@
+import 'package:dashsocial/presentation/screens/profile/edit_accountdetails_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../controllers/theme_controller.dart';
-import '../../controllers/user_controller.dart';
-import '../widgets/profile_tile.dart';
-import '../widgets/stat_item.dart';
+import '../../../controllers/theme_controller.dart';
+import '../../../controllers/user_controller.dart';
+import '../../widgets/profile_tile.dart';
+import '../../widgets/stat_item.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   final ThemeController themeController = Get.put(ThemeController());
+
   final UserController userController = Get.put(UserController());
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     userController.fetchUserProfile();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -26,12 +40,15 @@ class ProfileScreen extends StatelessWidget {
             top: 30,
             child: IconButton(
               icon:   Icon(Icons.edit, color: Colors.white),
-              onPressed: () {
-                // todo edit screen gotta build
+              onPressed: () async {
+                final result = await Get.to(() => EditAccountPage());
+                if (result == true) {
+                  userController.fetchUserProfile();
+                }
               },
+
             ),
           ),
-
           Obx(() => userController.isLoading.value
               ?   Center(child: CircularProgressIndicator())
               : ListView(
@@ -147,10 +164,4 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-
-
-
- 
-
-
 }

@@ -1,0 +1,83 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:dashsocial/controllers/user_controller.dart';
+import 'package:dashsocial/services/cloudinary_service.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+class EditAccountController extends GetxController {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final isLoading = false.obs;
+  final selectedImage = Rxn<File>();
+
+  final userController = Get.find<UserController>();
+
+  @override
+  void onInit() {
+    nameController.text = userController.userName.value;
+    emailController.text = userController.email.value;
+    super.onInit();
+  }
+
+  Future<void> pickImage() async {
+    final result = await FilePicker.platform.pickFiles(type: FileType.image);
+    if (result != null) {
+      selectedImage.value = File(result.files.single.path!);
+    }
+  }
+
+  Future<void> saveChanges() async {
+    isLoading.value = true;
+
+    try {
+      String? imageUrl = userController.profileImageUrl.value;
+      if (selectedImage.value != null) {
+        final uploadedUrl = await CloudinaryService.uploadImage(selectedImage.value!);
+        if (uploadedUrl != null) {
+          imageUrl = uploadedUrl;
+        } else {
+          Get.snackbar('Error', 'Image upload failed');
+          return;
+        }
+      }
+
+      final name = nameController.text.trim();
+      final email = emailController.text.trim();
+      final user = Supabase.instance.client.auth.currentUser;
+
+      if (user != null) {
+        await Supabase.instance.client.from('users').update({
+          'username': name,
+          'email': email,
+          'profile_image': imageUrl,
+        }).eq('id', user.id);
+
+        // Optional: Update auth email
+        await Supabase.instance.client.auth.updateUser(
+          UserAttributes(email: email),
+        );
+
+        // Update GetX state
+        userController.userName.value = name;
+        userController.email.value = email;
+        userController.profileImageUrl.value = imageUrl ?? '';
+
+        Get.back();
+        Get.snackbar('Success', 'Profile updated');
+      }
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  @override
+  void onClose() {
+    nameController.dispose();
+    emailController.dispose();
+    super.onClose();
+  }
+}
