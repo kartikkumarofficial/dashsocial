@@ -1,4 +1,5 @@
 import 'package:dashsocial/controllers/auth_controller.dart';
+import 'package:dashsocial/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +16,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final AuthController authController = Get.put(AuthController() , permanent: false);
+  final AuthController authController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +27,9 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'DashSocial',
-              style: GoogleFonts.pacifico(fontSize: 40, color: Colors.white),
-            ),
+                  'DashSocial',
+                  style: GoogleFonts.pacifico(fontSize: 40, color: Colors.white),
+                ),
             const SizedBox(height: 40),
             TextField(
               controller: authController.emailController,

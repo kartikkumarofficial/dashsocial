@@ -1,5 +1,6 @@
 import 'package:dashsocial/presentation/screens/auth/login_screen.dart';
 import 'package:dashsocial/presentation/screens/dashboard_screen.dart';
+import 'package:dashsocial/presentation/screens/main_scaffold.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -13,12 +14,13 @@ class AuthController extends GetxController {
   final isLoading = false.obs;
 
   Future<void> signUp() async {
+    final name = nameController.text.trim();
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
     final confirmPassword = confirmPasswordController.text.trim();
 
     if (password != confirmPassword) {
-      Get.snackbar('Error', 'Passwords do not match',colorText: Colors.white);
+      Get.snackbar('Error', 'Passwords do not match', colorText: Colors.white);
       return;
     }
 
@@ -27,15 +29,31 @@ class AuthController extends GetxController {
       final response = await supabase.auth.signUp(
         email: email,
         password: password,
-        data: {"name": nameController.text.trim()},//final name = Supabase.instance.client.auth.currentUser?.userMetadata?['name']; - can be accessed by this
-
+        data: {
+          "name": nameController.text.trim(),
+        }, //final name = Supabase.instance.client.auth.currentUser?.userMetadata?['name']; - can be accessed by this
       );
 
       if (response.user != null) {
-        Get.snackbar('Success', 'Signed up as ${response.user!.email}');
+        await supabase.from('users').insert({
+          'id': response.user!.id,
+          'email': email,
+          'username': name,
+          'profile_image':
+              'https://api.dicebear.com/6.x/pixel-art/svg?seed=$email',
+        });
+        Get.snackbar(
+          'Success',
+          'Signed up as ${response.user!.email}, Confirm your email via the link in your inbox',
+          colorText: Colors.white,
+        );
         Get.offAll(LoginPage());
       } else {
-        Get.snackbar('Sign Up Failed', 'Something went wrong. Try again.',colorText: Colors.white);
+        Get.snackbar(
+          'Sign Up Failed',
+          'Something went wrong. Try again.',
+          colorText: Colors.white,
+        );
       }
     } catch (e) {
       Get.snackbar(
@@ -51,30 +69,45 @@ class AuthController extends GetxController {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
     if (email.isEmpty || password.isEmpty) {
-      Get.snackbar('Error', 'Email and password cannot be empty',colorText: Colors.white);
+      Get.snackbar(
+        'Error',
+        'Email and password cannot be empty',
+        colorText: Colors.white,
+      );
       return;
     }
     isLoading.value = true;
 
-    try{
-      final response = await supabase.auth.signInWithPassword(email:email,password: password);
+    try {
+      final response = await supabase.auth.signInWithPassword(
+        email: email,
+        password: password,
+      );
 
-      if(response.user != null){
-        Get.snackbar('Welcome', 'Logged in as ${response.user!.email}',colorText: Colors.white);
-        Get.offAll(DashboardScreen()) ;
-
-      }else{
-        Get.snackbar('Login Failed','Invalid Credentials' ,colorText: Colors.white);
+      if (response.user != null) {
+        Get.snackbar(
+          'Welcome',
+          'Logged in as ${response.user!.email} ',
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        Get.offAll(MainScaffold());
+      } else {
+        Get.snackbar(
+          'Login Failed',
+          'Invalid Credentials',
+          colorText: Colors.white,
+        );
       }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        e.toString().replaceAll('Exception', ''),
+        colorText: Colors.white,
+      );
+    } finally {
+      isLoading.value = false;
     }
-        catch(e){
-      Get.snackbar('Error', e.toString().replaceAll('Exception',''),colorText: Colors.white);
-        }
-    finally{
-      isLoading.value=false;
-    }
-
-
   }
 
   @override

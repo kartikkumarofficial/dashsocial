@@ -1,29 +1,89 @@
-import 'package:flutter/material.dart';
+import 'package:dashsocial/presentation/screens/auth/login_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:supabase/supabase.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+class UserController extends GetxController {
+  final supabase = Supabase.instance.client;
 
-class UserController extends GetxController{
   var userName = ''.obs;
   var profileImageUrl = ''.obs;
-  final supabase = Supabase.instance.client;
-  
-  Future<void> fetchUserProfile() async{
+  var email = ''.obs;
+  var isLoading = false.obs;
 
-    final user = supabase.auth.currentUser;
-    final userData = await supabase.from('users').select().eq('id', user!.id).single();
+  Future<void> fetchUserProfile() async {
+    try {
+      isLoading.value = true;
+      final user = supabase.auth.currentUser;
 
-    userName.value = userData['username'];
-    profileImageUrl.value = userData['profile_image'];
+      if (user != null) {
 
+        print('Logged-in User ID: ${user.id}');
+
+        email.value = user.email ?? '';
+
+        final response =
+        await supabase.from('users').select().eq('id', user.id).single();
+
+        print('User table response: $response');
+
+        userName.value = response['username'] ?? 'username not provided';
+        profileImageUrl.value =
+            response['profile_image'] ??
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9oq8vhrZWuASFrhOqfj4rPD0H-UKzzK2_tQ&s';
+      }
+    } catch (e) {
+      print('Fetch user profile error: $e');
+      Get.snackbar('Error', 'Failed to fetch user profile');
+    } finally {
+      isLoading.value = false;
+    }
   }
 
-  Future<void> updateProfileImage(String url) async{
-    final user = supabase.auth.currentUser;
-    await Supabase.instance.client.from('profiles').update({'profile_image':url}).eq('id', user!.id);
-    profileImageUrl.value=url;
+
+  Future<void> updateProfileImage(String url) async {
+    try {
+      final user = supabase.auth.currentUser;
+      if (user != null) {
+        await supabase
+            .from('users')
+            .update({'profile_image': url})
+            .eq('id', user.id);
+        profileImageUrl.value = url;
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to update profile image');
+    }
   }
-  
-  
+
+  Future<void> updateUserName(String newName) async {
+    try {
+      final user = supabase.auth.currentUser;
+      if (user != null) {
+        await supabase
+            .from('users')
+            .update({'username': newName})
+            .eq('id', user.id);
+        userName.value = newName;
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to update username');
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      await supabase.auth.signOut();
+      clearUserData();
+      Get.offAll(LoginPage());
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to logout');
+    }
+  }
+
+  void clearUserData() {
+    userName.value = '';
+    profileImageUrl.value = '';
+    email.value = '';
+  }
 }

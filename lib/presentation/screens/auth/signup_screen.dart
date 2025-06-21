@@ -19,7 +19,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final AuthController authController = Get.put(AuthController() , permanent: false);
+  final AuthController authController = Get.find();
 
   @override
   void dispose() {
