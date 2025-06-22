@@ -57,75 +57,88 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
               SizedBox(height: 12),
-            SizedBox(
-              height: 200,
-              child: LineChart(
-                LineChartData(
-                  backgroundColor: Colors.transparent,
-                  gridData: FlGridData(
-                    show: true,
-                    drawHorizontalLine: true,
-                    horizontalInterval: 1,
-                    getDrawingHorizontalLine: (_) => FlLine(
-                      color: Colors.white12,
-                      strokeWidth: 1,
-                    ),
+            Obx(() {
+              final data = analyticsController.likesOverTime;
+
+              if (data.isEmpty) {
+                return Container(
+                  height: 200,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "No engagement data available",
+                    style: TextStyle(color: Colors.white54),
                   ),
-                  titlesData: FlTitlesData(
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        getTitlesWidget: (value, _) => Padding(
-                          padding:   EdgeInsets.only(top: 8),
-                          child: Text(
-                            "Day ${value.toInt() + 1}",
-                            style:   TextStyle(
-                                color: Colors.white54, fontSize: 10),
+                );
+              }
+
+              return SizedBox(
+                height: 200,
+                child: LineChart(
+                  LineChartData(
+                    backgroundColor: Colors.transparent,
+                    gridData: FlGridData(
+                      show: true,
+                      drawHorizontalLine: true,
+                      horizontalInterval: 1,
+                      getDrawingHorizontalLine: (_) => FlLine(
+                        color: Colors.white12,
+                        strokeWidth: 1,
+                      ),
+                    ),
+                    titlesData: FlTitlesData(
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          interval: 1,
+                          getTitlesWidget: (value, _) => Padding(
+                            padding: EdgeInsets.only(top: 8),
+                            child: Text(
+                              "Day ${value.toInt() + 1}",
+                              style: TextStyle(color: Colors.white54, fontSize: 10),
+                            ),
                           ),
                         ),
-                        interval: 1,
                       ),
-                    ),
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        getTitlesWidget: (value, _) => Text(
-                          value.toInt().toString(),
-                          style:   TextStyle(
-                              color: Colors.white54, fontSize: 10),
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          interval: 1,
+                          getTitlesWidget: (value, _) => Text(
+                            value.toInt().toString(),
+                            style: TextStyle(color: Colors.white54, fontSize: 10),
+                          ),
                         ),
-                        interval: 1,
                       ),
+                      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
                     ),
-                    rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                    topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    borderData: FlBorderData(
+                      show: true,
+                      border: Border.all(color: Colors.white10),
+                    ),
+                    minX: 0,
+                    maxX: data.length.toDouble() - 1,
+                    minY: 0,
+                    maxY: data.reduce((a, b) => a > b ? a : b) + 1,
+                    lineBarsData: [
+                      LineChartBarData(
+                        isCurved: true,
+                        color: Colors.greenAccent,
+                        barWidth: 3,
+                        dotData: FlDotData(show: false),
+                        belowBarData: BarAreaData(show: false),
+                        spots: List.generate(
+                          data.length,
+                              (index) => FlSpot(index.toDouble(), data[index]),
+                        ),
+                      )
+                    ],
                   ),
-                  borderData: FlBorderData(
-                    show: true,
-                    border: Border.all(color: Colors.white10),
-                  ),
-                  minX: 0,
-                  maxX: 4,
-                  minY: 0,
-                  maxY: 5,
-                  lineBarsData: [
-                    LineChartBarData(
-                      isCurved: true,
-                      color: Colors.greenAccent,
-                      barWidth: 3,
-                      dotData: FlDotData(show: false),
-                      belowBarData: BarAreaData(show: false),
-                      spots:    List.generate(
-            analyticsController.likesOverTime.length,
-            (index) => FlSpot(index.toDouble(), analyticsController.likesOverTime[index])
-            ),
-
-            )
-                  ],
                 ),
-              ),
-            ),
-              SizedBox(height: 24),
+              );
+            }),
+
+            SizedBox(height: 24),
             Text(
               "Recent Posts",
               style: GoogleFonts.poppins(
