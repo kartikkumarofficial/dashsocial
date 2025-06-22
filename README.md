@@ -111,11 +111,11 @@ flutter run
 
 ## 📸 Screenshots 
 🔹 Dashboard View
-<img src="assets/outputs/1.png" width="400"/>
+<img src="assets/outputs/1.jpg" width="400"/>
 🔹 Post Scheduler
-<img src="assets/outputs/2.png" width="400"/>
+<img src="assets/outputs/2.jpg" width="400"/>
 🔹 User Profile
-<img src="assets/outputs/3.png" width="400"/>
+<img src="assets/outputs/3.jpg" width="400"/>
 🔹 Analytics Charts
-<img src="assets/outputs/4.png" width="400"/>
+<img src="assets/outputs/4.jpg" width="400"/>
 
