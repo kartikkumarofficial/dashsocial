@@ -8,7 +8,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../controllers/post_controller.dart';
 import '../../core/suggestions.dart';
+
+
+
 
 class ScheduleScreen extends StatefulWidget {
   const ScheduleScreen({super.key});
@@ -18,6 +22,7 @@ class ScheduleScreen extends StatefulWidget {
 }
 
 class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProviderStateMixin {
+  final PostController postController = Get.put(PostController());
   File? selectedImage;
   DateTime? scheduledTime;
   final captionController = TextEditingController();
@@ -57,20 +62,29 @@ class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProvid
     });
   }
 
-  void schedulePost() {
+  void schedulePost() async {
     if (selectedImage == null || scheduledTime == null || captionController.text.trim().isEmpty) {
       Get.snackbar("Incomplete", "Please fill all fields before scheduling.",
           backgroundColor: Colors.redAccent, colorText: Colors.white);
       return;
     }
 
-    print("Image path: ${selectedImage!.path}");
-    print("Caption: ${captionController.text}");
-    print("Scheduled Time: $scheduledTime");
+    await postController.uploadPost(
+      image: selectedImage!,
+      caption: captionController.text.trim(),
+      scheduledAt: scheduledTime!,
+    );
 
-    Get.snackbar("Scheduled!", "Your post is planned! 🚀",
-        backgroundColor: Colors.green, colorText: Colors.white);
+
+    if (!postController.isUploading.value) {
+      setState(() {
+        selectedImage = null;
+        scheduledTime = null;
+        captionController.clear();
+      });
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -215,8 +229,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProvid
               children: [
                 Expanded(
                   flex: 3,
-                  child: ElevatedButton(
-                    onPressed: schedulePost,
+                  child: Obx( (){
+                  return postController.isUploading.value
+                  ? CircularProgressIndicator()
+                      :ElevatedButton(
+                    onPressed:schedulePost,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.greenAccent,
                       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -225,7 +242,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProvid
                     ),
                     child: Text("Schedule Now",
                         style: GoogleFonts.poppins(color: Colors.black, fontSize: 16)),
-                  ),
+                  );})//
                 ),
                 const SizedBox(width: 12),
                 Expanded(

@@ -2,14 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../controllers/analytics_controller.dart';
 import '../widgets/recentpost_tile.dart';
 import '../widgets/stat_Card.dart';
 final analyticsController = Get.put(AnalyticsController());
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
     HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Stream<List<Map<String, dynamic>>> getUserPosts() {
+    final uid = Supabase.instance.client.auth.currentUser?.id;
+    return Supabase.instance.client
+        .from('posts')
+        .stream(primaryKey: ['id'])
+        .eq('user_id', uid!)
+        .order('created_at', ascending: false);
+
+  }
+  Stream<List<Map<String, dynamic>>> getScheduledPosts() {
+    final uid = Supabase.instance.client.auth.currentUser?.id;
+    final now = DateTime.now().toIso8601String();
+
+    return Supabase.instance.client
+        .from('posts')
+        .stream(primaryKey: ['id'])
+        .eq('user_id', uid!)
+        .order('scheduled_at', ascending: true)
+        .map((posts) => posts
+        .where((post) =>
+    post['scheduled_at'] != null &&
+        DateTime.parse(post['scheduled_at']).isAfter(DateTime.now()))
+        .toList());
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +181,9 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
               SizedBox(height: 10),
+
+
+
             Obx(() {
               if (analyticsController.recentPosts.isEmpty) {
                 return Text(
@@ -163,7 +199,7 @@ class HomeScreen extends StatelessWidget {
                     imageUrl: post.imageUrl,
                     time: "${post.createdTime.day} ${monthName(post.createdTime.month)}",
                     likes: post.likes,
-                    comments: post.comments,
+                    comments:  post.comments,
                   );
                 }).toList(),
               );
@@ -186,13 +222,97 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 10,),
+            Text(
+              "Scheduled Posts",
+              style: GoogleFonts.poppins(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: 10),
+            StreamBuilder<List<Map<String, dynamic>>>(
+              stream: getScheduledPosts(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      "No upcoming scheduled posts.",
+                      style: TextStyle(color: Colors.white54),
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                }
+
+                final scheduled = snapshot.data!;
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "📅 Scheduled Posts",
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ...scheduled.map((post) => Container(
+                      margin: EdgeInsets.only(bottom: 12),
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.white10,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              post['image_url'],
+                              width: 60,
+                              height: 60,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  post['caption'],
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  "Scheduled for: ${DateTime.parse(post['scheduled_at']).toLocal().toString().substring(0, 16)}",
+                                  style: TextStyle(color: Colors.white70, fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ))
+                  ],
+                );
+              },
+            ),
+
           ],
         ),
       ),
     );
   }
-
-
-
-
 }
