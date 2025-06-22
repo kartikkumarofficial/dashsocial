@@ -38,7 +38,7 @@ class EditAccountController extends GetxController {
         if (uploadedUrl != null) {
           imageUrl = uploadedUrl;
         } else {
-          Get.snackbar('Error', 'Image upload failed');
+          Get.snackbar('Error', 'Image upload failed',colorText: Colors.white);
           return;
         }
       }
@@ -54,21 +54,21 @@ class EditAccountController extends GetxController {
           'profile_image': imageUrl,
         }).eq('id', user.id);
 
-        // Optional: Update auth email
+
         await Supabase.instance.client.auth.updateUser(
           UserAttributes(email: email),
         );
 
-        // Update GetX state
+
         userController.userName.value = name;
         userController.email.value = email;
         userController.profileImageUrl.value = imageUrl ?? '';
 
         Get.back();
-        Get.snackbar('Success', 'Profile updated');
+        Get.snackbar('Success', 'Profile updated',colorText: Colors.white);
       }
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      Get.snackbar('Error', e.toString(),colorText: Colors.white,);
     } finally {
       isLoading.value = false;
     }

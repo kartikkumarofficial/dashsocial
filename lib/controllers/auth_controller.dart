@@ -58,6 +58,7 @@ class AuthController extends GetxController {
     } catch (e) {
       Get.snackbar(
         'Error',
+        colorText: Colors.white,
         e.toString().replaceAll('Exception: ', ''),
       ); //just to make error snack bar smaller and more readable
     } finally {

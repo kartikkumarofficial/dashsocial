@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     gridData: FlGridData(
                       show: true,
                       drawHorizontalLine: true,
-                      horizontalInterval: 1,
+                      horizontalInterval: 0.5,
                       getDrawingHorizontalLine: (_) => FlLine(
                         color: Colors.white12,
                         strokeWidth: 1,
@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           getTitlesWidget: (value, _) => Padding(
                             padding: EdgeInsets.only(top: 8),
                             child: Text(
-                              "Day ${value.toInt() + 1}",
+                              "Day ${value.toInt() + 19}",
                               style: TextStyle(color: Colors.white54, fontSize: 10),
                             ),
                           ),

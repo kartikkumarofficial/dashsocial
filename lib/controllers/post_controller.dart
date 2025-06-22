@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -51,14 +52,14 @@ class PostController extends GetxController {
 
     final userId = supabase.auth.currentUser?.id;
     if (userId == null) {
-      Get.snackbar("Error", "User not logged in.");
+      Get.snackbar("Error", "User not logged in.",colorText: Colors.white,);
       isUploading.value = false;
       return;
     }
 
     final imageUrl = await uploadToCloudinary(image);
     if (imageUrl == null) {
-      Get.snackbar("Error", "Image upload failed.");
+      Get.snackbar("Error", "Image upload failed.",colorText: Colors.white,);
       isUploading.value = false;
       return;
     }
@@ -71,9 +72,9 @@ class PostController extends GetxController {
     }).select();
 
     if (response.isEmpty) {
-      Get.snackbar("Error", "Failed to insert post.");
+      Get.snackbar("Error", "Failed to insert post.",colorText: Colors.white,);
     } else {
-      Get.snackbar("Success", "Post uploaded successfully.");
+      Get.snackbar("Success", "Post uploaded successfully.",colorText: Colors.white,);
     }
 
 

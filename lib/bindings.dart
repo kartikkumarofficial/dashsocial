@@ -10,7 +10,7 @@ class InitialBinding extends Bindings {
   void dependencies() {
     Get.put(AuthController());
     Get.put(NavController());
-    Get.put(UserController());
+    Get.put(UserController(),permanent: true);
     Get.put(AnalyticsController());
 
   }

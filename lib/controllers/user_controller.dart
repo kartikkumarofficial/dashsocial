@@ -1,5 +1,6 @@
 import 'package:dashsocial/presentation/screens/auth/login_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -34,7 +35,7 @@ class UserController extends GetxController {
       }
     } catch (e) {
       print('Fetch user profile error: $e');
-      Get.snackbar('Error', 'Failed to fetch user profile');
+      Get.snackbar('Error', 'Failed to fetch user profile',colorText: Colors.white,);
     } finally {
       isLoading.value = false;
     }
@@ -52,7 +53,7 @@ class UserController extends GetxController {
         profileImageUrl.value = url;
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to update profile image');
+      Get.snackbar('Error', 'Failed to update profile image',colorText: Colors.white,);
     }
   }
 
@@ -67,7 +68,7 @@ class UserController extends GetxController {
         userName.value = newName;
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to update username');
+      Get.snackbar('Error', 'Failed to update username',colorText: Colors.white,);
     }
   }
 
@@ -77,7 +78,7 @@ class UserController extends GetxController {
       clearUserData();
       Get.offAll(LoginPage());
     } catch (e) {
-      Get.snackbar('Error', 'Failed to logout');
+      Get.snackbar('Error', 'Failed to logout',colorText: Colors.white,);
     }
   }
 

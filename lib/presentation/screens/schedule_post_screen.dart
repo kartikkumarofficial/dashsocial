@@ -231,7 +231,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProvid
                   flex: 3,
                   child: Obx( (){
                   return postController.isUploading.value
-                  ? CircularProgressIndicator()
+                  ? Center(child: CircularProgressIndicator(color: Colors.white,))
                       :ElevatedButton(
                     onPressed:schedulePost,
                     style: ElevatedButton.styleFrom(

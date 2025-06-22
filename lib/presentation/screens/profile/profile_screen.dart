@@ -17,7 +17,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final ThemeController themeController = Get.put(ThemeController());
 
-  final UserController userController = Get.put(UserController());
+  final UserController userController = Get.find<UserController>();
 
   @override
   void initState() {
@@ -35,20 +35,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Stack(
         children: [
 
-          Positioned(
-            right: 10,
-            top: 30,
-            child: IconButton(
-              icon:   Icon(Icons.edit, color: Colors.white),
-              onPressed: () async {
-                final result = await Get.to(() => EditAccountPage());
-                if (result == true) {
-                  userController.fetchUserProfile();
-                }
-              },
-
-            ),
-          ),
+          // Positioned(
+          //   right: 10,
+          //   top: 30,
+          //   child: IconButton(
+          //     icon:   Icon(Icons.edit, color: Colors.white),
+          //     onPressed: () async {
+          //       final result = await Get.to(() => EditAccountPage());
+          //       if (result == true) {
+          //         userController.fetchUserProfile();
+          //       }
+          //     },
+          //
+          //   ),
+          // ),
           Obx(() => userController.isLoading.value
               ?   Center(child: CircularProgressIndicator())
               : ListView(
@@ -117,9 +117,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 
                                 ProfileTile(
+                                  onTap: () async {
+                                    final result = await Get.to(() => EditAccountPage());
+                                    if (result == true) {
+                                      userController.fetchUserProfile();
+                                    }},
                   icon: Icons.settings,
-                  label: "Preferences",
-                  onTap: () {},
+                  label: "Edit Account Details",
                                 ),
                                 Obx(() => ProfileTile(
                   icon: Icons.brightness_6,
