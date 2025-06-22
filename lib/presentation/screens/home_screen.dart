@@ -223,14 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(height: 10,),
-            Text(
-              "Scheduled Posts",
-              style: GoogleFonts.poppins(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+
             SizedBox(height: 10),
             StreamBuilder<List<Map<String, dynamic>>>(
               stream: getScheduledPosts(),
