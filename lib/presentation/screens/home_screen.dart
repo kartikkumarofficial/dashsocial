@@ -1,3 +1,4 @@
+import 'package:dashsocial/presentation/screens/schedule_post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -211,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             SizedBox(height: 24),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {Get.to(ScheduleScreen());},
               icon:   Icon(Icons.add, color: Colors.black),
               label:   Text(
                 "Create New Post",

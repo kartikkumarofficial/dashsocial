@@ -155,7 +155,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProvid
             ),
             const SizedBox(height: 20),
 
-            // Caption Field
+
             GlassmorphicContainer(
               width: double.infinity,
               height: 180,
@@ -224,7 +224,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProvid
 
             const SizedBox(height: 20),
 
-            // Buttons Row
+
             Row(
               children: [
                 Expanded(
@@ -242,7 +242,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProvid
                     ),
                     child: Text("Schedule Now",
                         style: GoogleFonts.poppins(color: Colors.black, fontSize: 16)),
-                  );})//
+                  );})
                 ),
                 const SizedBox(width: 12),
                 Expanded(
