@@ -1,5 +1,6 @@
 import 'package:dashsocial/controllers/auth_controller.dart';
 import 'package:dashsocial/homepage.dart';
+import 'package:dashsocial/presentation/screens/home_screen.dart';
 import 'package:dashsocial/presentation/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap:()=>Get.to(Homepage()),
+              onTap:()=>Get.to(null), // quick access
               child: Text(
                     'DashSocial',
                     style: GoogleFonts.pacifico(fontSize: 40, color: Colors.white),

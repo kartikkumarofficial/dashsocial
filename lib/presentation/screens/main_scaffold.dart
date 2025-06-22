@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../controllers/nav_controller.dart';
 import '../widgets/bottom_navigation_bar.dart';
+import 'home_screen.dart';
 import 'profile/profile_screen.dart';
 
 class MainScaffold extends StatelessWidget {
@@ -13,7 +14,7 @@ class MainScaffold extends StatelessWidget {
   final NavController navController = Get.put(NavController());
 
   final List<Widget> screens = [
-      Homepage(),
+      HomeScreen(),
       DashboardScreen(),
       DashboardScreen(),
     ProfileScreen(
