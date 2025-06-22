@@ -109,10 +109,13 @@ flutter run
 
 ---
 
-## 📸 Screenshots (optional section)
+## 📸 Screenshots 
+🔹 Dashboard View
+<img src="assets/outputs/1.png" width="400"/>
+🔹 Post Scheduler
+<img src="assets/outputs/2.png" width="400"/>
+🔹 User Profile
+<img src="assets/outputs/3.png" width="400"/>
+🔹 Analytics Charts
+<img src="assets/outputs/4.png" width="400"/>
 
-> You can add screenshots here showing the dashboard, post creation, or user profile views for visual impact.
-
----
-
-Let me know if you'd like the above saved as a `README.md` file or want to add any badges, screenshots, or contribution guidelines!
