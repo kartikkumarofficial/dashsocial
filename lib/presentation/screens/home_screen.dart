@@ -48,21 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 0,
-        title: Obx(() => Text(
-          'Welcome, ${analyticsController.username} 👋',
-          style: GoogleFonts.poppins(color: Colors.white, fontSize: 20),
-        )),
 
-        actions: [
-          IconButton(
-            icon:   Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {},
-          ),
-        ],
-      ),
       body: RefreshIndicator(
         onRefresh: ()async{
           analyticsController.fetchUserData();
@@ -72,6 +58,23 @@ class _HomeScreenState extends State<HomeScreen> {
         ListView(
           padding:   EdgeInsets.all(16),
           children: [
+            SafeArea(
+              child: Row(
+                children: [
+                  Obx(() => Text(
+                    'Welcome, ${analyticsController.username} 👋',overflow: TextOverflow.fade,
+                    style: GoogleFonts.poppins(color: Colors.white, fontSize: Get.width*0.05),
+                  )),
+                  Positioned(
+                    right: 5,
+                    child: IconButton(
+                      icon:   Icon(Icons.notifications, color: Colors.white),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Row(
               children: [
                 Obx(() => StatCard("Followers", "${analyticsController.followers}", Icons.group)),
