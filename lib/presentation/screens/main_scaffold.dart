@@ -1,5 +1,6 @@
 import 'package:dashsocial/homepage.dart';
 import 'package:dashsocial/presentation/screens/dashboard_screen.dart';
+import 'package:dashsocial/presentation/screens/schedule_post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +17,7 @@ class MainScaffold extends StatelessWidget {
   final List<Widget> screens = [
       HomeScreen(),
       DashboardScreen(),
-      DashboardScreen(),
+      ScheduleScreen(),
     ProfileScreen(
     ),
   ];
