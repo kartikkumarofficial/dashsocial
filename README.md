@@ -1,9 +1,11 @@
-
 # 📊 DashSocial – Social Media Analytics & Post Scheduler
 
-**DashSocial** is a responsive and feature-rich Flutter app that helps creators and marketers manage their Instagram presence. It includes analytics dashboards, post scheduling, user profile handling, and real-time visualizations — all integrated with a mock Instagram API served via **Mockoon**.
+**DashSocial** is a responsive and feature-rich Flutter app that helps creators and marketers manage
+their Instagram presence. It includes analytics dashboards, post scheduling, user profile handling,
+and real-time visualizations — all integrated with a mock Instagram API served via **Mockoon**.
 
-Built with **Flutter + GetX**, powered by **Supabase**, and styled for modern social media workflows.
+Built with **Flutter + GetX**, powered by **Supabase**, and styled for modern social media
+workflows.
 
 ---
 
@@ -40,7 +42,7 @@ Built with **Flutter + GetX**, powered by **Supabase**, and styled for modern so
 ## 🧠 Tech Stack
 
 | Layer          | Tech Used                           |
-| -------------- | ----------------------------------- |
+|----------------|-------------------------------------|
 | **Frontend**   | Flutter, Dart                       |
 | **State Mgmt** | GetX                                |
 | **Auth & DB**  | Supabase (Auth + Postgres)          |
@@ -110,4 +112,15 @@ flutter run
 ---
 
 ## 📸 Screenshots
-<div align="center"> <img src="assets/outputs/1.jpg" width="180"/> <img src="assets/outputs/2.jpg" width="180"/> <img src="assets/outputs/3.jpg" width="180"/> <img src="assets/outputs/4.jpg" width="180"/> <br><br> <img src="assets/outputs/6.jpg" width="180"/> <img src="assets/outputs/7.jpg" width="180"/> <img src="assets/outputs/8.jpg" width="180"/> <img src="assets/outputs/2.jpg" width="180"/> </div>
+
+<div align="center"> 
+<img src="assets/outputs/1.jpg" width="180"/> 
+<img src="assets/outputs/2.jpg" width="180"/> 
+<img src="assets/outputs/3.jpg" width="180"/> 
+<img src="assets/outputs/4.jpg" width="180"/> 
+
+<br><br> 
+<img src="assets/outputs/5.jpg" width="180"/> 
+<img src="assets/outputs/6.jpg" width="180"/>
+<img src="assets/outputs/7.jpg" width="180"/> 
+<img src="assets/outputs/8.jpg" width="180"/> </div>
