@@ -123,4 +123,4 @@ flutter run
 <img src="assets/outputs/5.jpg" width="180"/> 
 <img src="assets/outputs/6.jpg" width="180"/>
 <img src="assets/outputs/7.jpg" width="180"/> 
-<img src="assets/outputs/8.jpg" width="180"/> </div>
+ </div>
