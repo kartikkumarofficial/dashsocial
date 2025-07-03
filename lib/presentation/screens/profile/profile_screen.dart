@@ -1,4 +1,4 @@
-import 'package:dashsocial/presentation/screens/profile/edit_accountdetails_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,6 +6,7 @@ import '../../../controllers/theme_controller.dart';
 import '../../../controllers/user_controller.dart';
 import '../../widgets/profile_tile.dart';
 import '../../widgets/stat_item.dart';
+import 'edit_accountdetails_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({super.key});
