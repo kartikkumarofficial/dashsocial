@@ -66,12 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Welcome, ${analyticsController.username} 👋',overflow: TextOverflow.fade,
                     style: GoogleFonts.poppins(color: Colors.white, fontSize: Get.width*0.05),
                   )),
-                  Positioned(
-                    right: 5,
-                    child: IconButton(
-                      icon:   Icon(Icons.notifications, color: Colors.white),
-                      onPressed: () {},
-                    ),
+                  IconButton(
+                    icon:   Icon(Icons.notifications, color: Colors.white),
+                    onPressed: () {},
                   ),
                 ],
               ),

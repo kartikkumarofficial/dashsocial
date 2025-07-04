@@ -27,7 +27,8 @@ class AnalyticsController extends GetxController {
       if (res.statusCode == 200) {
         final data = json.decode(res.body)['data'];
         followers.value = data['counts']['followed_by'];
-        reach.value = 18400;
+        // reach.value = data['counts']['reach'];
+        reach.value=1800;
         username.value = data['username'];
       }
     } catch (e) {
