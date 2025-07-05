@@ -25,16 +25,27 @@ class AnalyticsController extends GetxController {
     try {
       final res = await http.get(Uri.parse('$baseUrl/users/user_id'));
       if (res.statusCode == 200) {
-        final data = json.decode(res.body)['data'];
+        final body = json.decode(res.body);
+        print('Raw response: $body');
+        final data = body['data'];
+        print('Data object: $data');
+        print('Counts: ${data['counts']}');
+
         followers.value = data['counts']['followed_by'];
-        // reach.value = data['counts']['reach'];
-        reach.value=1800;
+        reach.value = data['counts']['reach'] ?? 1800;
         username.value = data['username'];
+
+        print('Followers: ${followers.value}');
+        print('Reach: ${reach.value}');
+        print('Username: ${username.value}');
+      } else {
+        print('Non-200 response: ${res.statusCode}');
       }
     } catch (e) {
       print('Error fetching user data: $e');
     }
   }
+
 
   void fetchMediaData() async {
     try {
@@ -49,8 +60,6 @@ class AnalyticsController extends GetxController {
             .take(5)
             .map<double>((item) => item['likes']['count'] / 1000)
             .toList();
-
-
 
         recentPosts.value = media.take(3).map<PostModel>((item) {
           return PostModel(

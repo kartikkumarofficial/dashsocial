@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import 'controllers/analytics_controller.dart';
+import 'controllers/analytics_detail_controller.dart';
 import 'controllers/auth_controller.dart';
 import 'controllers/nav_controller.dart';
 import 'controllers/user_controller.dart';
@@ -12,6 +13,7 @@ class InitialBinding extends Bindings {
     Get.put(NavController());
     Get.put(UserController(),permanent: true);
     Get.put(AnalyticsController());
+    Get.put(AnalyticsDetailController(),permanent: true);
 
   }
 }

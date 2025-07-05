@@ -8,16 +8,18 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../controllers/analytics_controller.dart';
 import '../widgets/recentpost_tile.dart';
 import '../widgets/stat_Card.dart';
-final analyticsController = Get.put(AnalyticsController());
+final AnalyticsController analyticsController = Get.find<AnalyticsController>();
 
 class HomeScreen extends StatefulWidget {
     HomeScreen({super.key});
+
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   Stream<List<Map<String, dynamic>>> getUserPosts() {
     final uid = Supabase.instance.client.auth.currentUser?.id;
     return Supabase.instance.client
@@ -27,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
         .order('created_at', ascending: false);
 
   }
+
+
   Stream<List<Map<String, dynamic>>> getScheduledPosts() {
     final uid = Supabase.instance.client.auth.currentUser?.id;
     final now = DateTime.now().toIso8601String();

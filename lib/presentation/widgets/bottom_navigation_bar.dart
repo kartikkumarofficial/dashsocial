@@ -24,10 +24,10 @@ class BottomNavBar extends StatelessWidget {
       iconSize: 28,
       elevation: 8,
       items: const [
-        // BottomNavigationBarItem(
-        //   icon: Icon(Icons.home),
-        //   label: 'Home',
-        // ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
         BottomNavigationBarItem(
           icon: Icon(Icons.bar_chart),
           label: 'Analytics',
