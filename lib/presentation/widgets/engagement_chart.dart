@@ -66,6 +66,7 @@ class EngagementChart extends StatelessWidget {
             show: true,
             drawVerticalLine: false,
             horizontalInterval: 50,
+            // verticalInterval: 1,
             getDrawingHorizontalLine: (value) =>
                 FlLine(
                   color: Colors.white12,
