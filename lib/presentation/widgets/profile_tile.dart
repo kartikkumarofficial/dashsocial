@@ -16,7 +16,7 @@ Widget ProfileTile({
       ),
       child: Row(
         children: [
-          Icon(icon, color: Colors.tealAccent),
+          Icon(icon, color: Colors.white),
           SizedBox(width: 16),
           Expanded(
             child: Text(

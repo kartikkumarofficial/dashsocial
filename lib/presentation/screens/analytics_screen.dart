@@ -19,12 +19,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[900],
-      appBar: AppBar(
-        title: const Text('Audience Insights'),
-        backgroundColor: Colors.grey[850],
-      ),
+
       body: Obx(() {
-        // Check that all data is ready
+
         if (controller.engagementOverTime.isEmpty ||
             controller.highlightData.isEmpty ||
             controller.genderDistribution.isEmpty ||
@@ -37,6 +34,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SafeArea(child: Text('Audience Insights',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 25),)),
               HighlightCard(highlight: controller.highlightData.value),
 
 

@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       title: 'DashSocial',
       initialBinding: InitialBinding(),
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
       debugShowCheckedModeBanner: false,
       home:LoginPage(),

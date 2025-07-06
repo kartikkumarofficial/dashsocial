@@ -20,10 +20,10 @@ class EngagementChart extends StatelessWidget {
               sideTitles: SideTitles(
                 showTitles: true,
                 getTitlesWidget: (value, _) {
-                  // Guard for invalid indexes
+
                   if (value >= 0 && value < data.length) {
                     final dateStr = data[value.toInt()]["date"] as String;
-                    // Example: show "06-01"
+
                     return Padding(
                       padding: const EdgeInsets.only(top: 4.0),
                       child: Text(

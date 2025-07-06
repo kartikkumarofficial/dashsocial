@@ -8,7 +8,7 @@ class HighlightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.orange.shade700,
+      color: Colors.orangeAccent.withValues(alpha: 0.8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(16),

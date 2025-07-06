@@ -1,4 +1,5 @@
 
+import 'package:dashsocial/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -89,9 +90,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  StatItem("Followers", "2.1K"),
-                  StatItem("Posts", "145"),
-                  StatItem("Engagement", "5.3%"),
+                  StatItem("Followers", analyticsController.followers.toString()),
+                  StatItem("Posts", analyticsController.recentPosts.length.toString()),
+                  StatItem("Reach", analyticsController.reach.toString()),
                 ],
               ),
                 SizedBox(height: 32),
