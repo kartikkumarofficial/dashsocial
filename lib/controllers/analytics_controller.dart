@@ -11,7 +11,8 @@ class AnalyticsController extends GetxController {
   var username = ''.obs;
   var recentPosts = <PostModel>[].obs;
 
-  final String baseUrl = 'http://192.168.227.239:3000/v1';
+  final String baseUrl = 'http://192.168.215.239:3000/v1';
+
 
 
   @override
