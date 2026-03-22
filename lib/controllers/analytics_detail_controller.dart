@@ -8,7 +8,7 @@ class AnalyticsDetailController extends GetxController {
   var ageDistribution = <String, int>{}.obs;
   var highlightData = {}.obs;
 
-  final String baseUrl = 'http://192.168.215.239:3000/v1';
+  final String baseUrl = 'http://172.17.28.112:3000/v1';
 
   @override
   void onInit() {
